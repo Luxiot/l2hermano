@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: l2-hermanos-login
+    env: java
+    plan: free
+    buildCommand: echo "Building L2 Hermanos Login Server"
+    startCommand: cd loginserver && java -Dfile.encoding=UTF8 -Xms128m -Xmx512m -cp ./lib/*;l2jfrozen-core.jar com.l2jfrozen.loginserver.L2LoginServer
+    envVars:
+      - key: JAVA_OPTS
+        value: -Dfile.encoding=UTF8 -Xms128m -Xmx512m
+      - key: PORT
+        value: 2106
+    healthCheckPath: /health
+
+  - type: web
+    name: l2-hermanos-game
+    env: java
+    plan: free
+    buildCommand: echo "Building L2 Hermanos Game Server"
+    startCommand: cd gameserver && java -Dfile.encoding=UTF8 -Xms256m -Xmx1024m -cp ./lib/*;l2jfrozen-core.jar com.l2jfrozen.gameserver.GameServer
+    envVars:
+      - key: JAVA_OPTS
+        value: -Dfile.encoding=UTF8 -Xms256m -Xmx1024m
+      - key: PORT
+        value: 7777
+    healthCheckPath: /health
+
+databases:
+  - name: l2hermanos-db
+    plan: free
+    databaseName: l2jdb
+    user: l2hermanos
+
