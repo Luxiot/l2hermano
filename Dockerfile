@@ -2,10 +2,10 @@
 FROM openjdk:8-jdk-alpine
 
 # Instalar dependencias necesarias
-RUN apk add --no-cache curl bash
+RUN apk add --no-cache curl bash wget
 
 # Descargar driver PostgreSQL
-RUN curl -o /tmp/postgresql.jar https://jdbc.postgresql.org/download/postgresql-42.2.24.jar
+RUN wget -O /tmp/postgresql.jar https://jdbc.postgresql.org/download/postgresql-42.2.24.jar
 
 # Crear directorio de trabajo
 WORKDIR /app
